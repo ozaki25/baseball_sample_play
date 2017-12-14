@@ -1,5 +1,40 @@
-@()
+@(players: List[Player])
 
 @main("Listing Players") {
-<h1>Listing Players</h1>
+<div class="container">
+    <h1>Listing Players</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>年齢</th>
+            <th>チーム名</th>
+            <th>守備位置</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(player <- players) {
+        <tr>
+            <td>@player.id</td>
+            <td>@player.name</td>
+            <td>@player.age</td>
+            <td>@player.team</td>
+            <td>@player.position</td>
+            <td><a class="btn btn-default btn-xs" href="@routes.PlayerController.show(player.id)">参照</a></td>
+            <td><a class="btn btn-default btn-xs" href="@routes.PlayerController.edit(player.id)">編集</a></td>
+            <td>
+                @helper.form(action = routes.PlayerController.destroy(player.id)) {
+                <button class="btn btn-default btn-xs">削除</button>
+                }
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+    <a class="btn btn-link pull-right" href="@routes.PlayerController.newPlayer">新規作成へ</a>
+</div>
 }

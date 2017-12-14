@@ -1,5 +1,17 @@
-@()
+@(form: Form[Player])
+@implicitField = @{ helper.FieldConstructor(helpers.fieldConstructor.f) }
 
 @main("New Player") {
-<h1>New Player</h1>
+<div class="container">
+    <h1>New Player</h1>
+    @helper.form(action = routes.PlayerController.create) {
+        @helper.CSRF.formField
+        @helper.inputText(form("name"), '_label -> "名前", 'class -> "form-control")
+        @helper.inputText(form("age"), '_label -> "年齢", 'class -> "form-control")
+        @helper.inputText(form("team"), '_label -> "チーム", 'class -> "form-control")
+        @helper.inputText(form("position"), '_label -> "守備位置", 'class -> "form-control")
+        <button class="btn btn-default">作成</button>
+    }
+    <a class="btn btn-link pull-right" href="@routes.PlayerController.index">一覧画面へ</a>
+</div>
 }
